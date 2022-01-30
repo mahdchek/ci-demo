@@ -39,6 +39,7 @@ node {
             }catch(e){
                 println "aucun conteneur n'est lancé"
             }
+            sh "echo $DB_HOST"
             sh "sudo docker-compose -f docker-compose-appli.yaml up -d --build"
         }
     }
