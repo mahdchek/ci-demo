@@ -18,4 +18,4 @@ services:
     ports:
       - "8080:8080"
     environment:
-      DB_HOST: ${DB_HOST}
+      - DB_HOST=${DB_HOST}
