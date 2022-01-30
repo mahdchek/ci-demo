@@ -41,7 +41,7 @@ node {
             }catch(e){
                 println "aucun conteneur n'est lancé"
             }
-            sh "./script.sh"
+            sh "chmod 777 script.sh && ./script.sh"
             sh "sudo docker-compose -f docker-compose-appli.yaml up -d --build"
         }
     }
