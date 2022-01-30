@@ -33,7 +33,7 @@ node {
             unstash 'docker-compose-file'
             unstash 'docker-file'
             sh "sudo docker build -t ci-back ."
-            sh "docker-compose -f docker-compose-appli.yaml up -d"
+            sh "sudo docker-compose -f docker-compose-appli.yaml up -d"
         }
     }
 }
