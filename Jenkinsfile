@@ -19,12 +19,12 @@ node {
 
     }
 
-//    stage ("Quality Analyses"){
-//        sh "./mvnw sonar:sonar \\\n" +
-//                "  -Dsonar.projectKey=ci-back \\\n" +
-//                "  -Dsonar.host.url=http://192.168.1.12:10002 \\\n" +
-//                "  -Dsonar.login=faaee55eb15db910c4d783390e989d033042025b"
-//    }
+    stage ("Quality Analyses"){
+        sh "./mvnw sonar:sonar \\\n" +
+                "  -Dsonar.projectKey=ci-back \\\n" +
+                "  -Dsonar.host.url=http://192.168.1.12:10002 \\\n" +
+                "  -Dsonar.login=faaee55eb15db910c4d783390e989d033042025b"
+    }
 
 
     node('amazon-vm'){
@@ -33,7 +33,13 @@ node {
             unstash 'docker-compose-file'
             unstash 'docker-file'
             sh "sudo docker build -t ci-back ."
-            sh "sudo docker-compose -f docker-compose-appli.yaml up -d"
+            try{
+                sh "sudo docker stop \$(docker ps -aq)"
+                sh "sudo docker rm \$(docker ps -aq)"
+            }catch(e){
+                println "aucun conteneur n'est lancé"
+            }
+            sh "sudo docker-compose -f docker-compose-appli.yaml up -d --build"
         }
     }
 }
