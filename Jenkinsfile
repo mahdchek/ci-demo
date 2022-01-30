@@ -11,8 +11,8 @@ node {
     stage ("build"){
         sh "chmod 777 mvnw"
         sh "./mvnw clean package -DskipTests"
-        stash includes: 'docker-compose-appli.yaml', name: 'livrable'
-        stash includes: 'Dockerfile', name: 'livrable'
+        stash includes: 'docker-compose-appli.yaml', name: 'docker-compose-file'
+        stash includes: 'Dockerfile', name: 'docker-file'
         dir('target'){
             stash includes: 'ci*.jar', name: 'livrable'
         }
@@ -30,6 +30,8 @@ node {
     node('amazon-vm'){
         stage("deploy"){
             unstash 'livrable'
+            unstash 'docker-compose-file'
+            unstash 'dockerfile'
             sh "sudo docker build -t ci-back ."
             sh "docker-compose -f docker-compose-appli.yaml up -d"
         }
