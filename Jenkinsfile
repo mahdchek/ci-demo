@@ -11,7 +11,7 @@ node {
     stage ("build"){
         sh "chmod 777 mvnw"
         sh "./mvnw clean package -DskipTests"
-        stash includes: 'target/ci*.jar', name: 'livrable'
+        stash includes: 'ci*.jar', name: 'livrable'
     }
 
     stage ("Quality Analyses"){
