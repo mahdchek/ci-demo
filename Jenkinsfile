@@ -31,7 +31,7 @@ node {
         stage("deploy"){
             unstash 'livrable'
             unstash 'docker-compose-file'
-            unstash 'dockerfile'
+            unstash 'docker-file'
             sh "sudo docker build -t ci-back ."
             sh "docker-compose -f docker-compose-appli.yaml up -d"
         }
