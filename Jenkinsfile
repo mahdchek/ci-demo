@@ -34,8 +34,8 @@ node {
             unstash 'docker-file'
             sh "sudo docker build -t ci-back ."
             try{
-                sh "sudo docker stop \$(docker ps -aq)"
-                sh "sudo docker rm \$(docker ps -aq)"
+                sh "sudo docker stop \$(sudo docker ps -aq)"
+                sh "sudo docker rm \$(sudo docker ps -aq)"
             }catch(e){
                 println "aucun conteneur n'est lancé"
             }
