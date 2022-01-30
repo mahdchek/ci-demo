@@ -5,6 +5,6 @@ node {
     }
 
     stage("unit tests"){
-        sh "./mvnw test"
+        sh "chmod 777 mvnw && ./mvnw test"
     }
 }
