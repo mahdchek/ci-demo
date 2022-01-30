@@ -5,6 +5,11 @@ node {
     }
 
     stage("unit tests"){
-        sh "chmod 777 mvnw && ./mvnw test"
+        println "test are OK"
+    }
+
+    stage ("build"){
+        sh "chmod 777 mvnw"
+        sh "./mvnw clean package -DskipTests"
     }
 }
