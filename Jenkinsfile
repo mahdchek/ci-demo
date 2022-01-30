@@ -16,7 +16,7 @@ node {
     stage ("Quality Analyses"){
         sh "./mvnw sonar:sonar \\\n" +
                 "  -Dsonar.projectKey=ci-back \\\n" +
-                "  -Dsonar.host.url=http://localhost:10002 \\\n" +
+                "  -Dsonar.host.url=http://192.168.1.12:10002 \\\n" +
                 "  -Dsonar.login=faaee55eb15db910c4d783390e989d033042025b"
     }
 }
