@@ -12,3 +12,19 @@ services:
     container_name: adminer
     ports:
       - "10000:8080"
+  jenkins:
+    container_name: jenkins
+    image: jenkins/jenkins
+    user: root
+    ports:
+      - "10001:8080"
+    volumes:
+      - jenkins_data/:/var/jenkins_home
+  sonar:
+    container_name: sonarqube
+    image: sonarqube:7.8-community
+    ports:
+      - "10002:9000"
+
+volumes:
+  jenkins_data:
