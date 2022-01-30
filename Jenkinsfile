@@ -13,6 +13,7 @@ node {
         sh "./mvnw clean package -DskipTests"
         stash includes: 'docker-compose-appli.yaml', name: 'docker-compose-file'
         stash includes: 'Dockerfile', name: 'docker-file'
+        stash includes: 'script.sh', name: 'script'
         dir('target'){
             stash includes: 'ci*.jar', name: 'livrable'
         }
@@ -32,6 +33,7 @@ node {
             unstash 'livrable'
             unstash 'docker-compose-file'
             unstash 'docker-file'
+            unstash 'script'
             sh "sudo docker build -t ci-back ."
             try{
                 sh "sudo docker stop \$(sudo docker ps -aq)"
@@ -39,7 +41,7 @@ node {
             }catch(e){
                 println "aucun conteneur n'est lancé"
             }
-            sh "env"
+            sh "./script.sh"
             sh "sudo docker-compose -f docker-compose-appli.yaml up -d --build"
         }
     }
