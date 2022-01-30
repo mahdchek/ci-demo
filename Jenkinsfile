@@ -12,6 +12,7 @@ node {
         sh "chmod 777 mvnw"
         sh "./mvnw clean package -DskipTests"
         stash includes: 'docker-compose-appli.yaml', name: 'livrable'
+        stash includes: 'Dockerfile', name: 'livrable'
         dir('target'){
             stash includes: 'ci*.jar', name: 'livrable'
         }
