@@ -17,3 +17,5 @@ services:
     image: ci-back
     ports:
       - "8080:8080"
+    environment:
+      DB_HOST: ${DB_HOST}
